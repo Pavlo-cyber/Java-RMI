@@ -220,6 +220,7 @@ public class lab_4
         public Registry reg;
         public Host(String HostName,int port) throws Exception
         {
+            System.setProperty("java.rmi.server.hostname", "34.207.119.137");
             Registry reg = LocateRegistry.createRegistry(port);	//Порт задеє користувач
             reg.rebind(HostName, new BrainImpl());	//Прив'язую сервер до реєстру RMI
             System.out.println("Host "+HostName+" started successfully");
@@ -311,6 +312,7 @@ public class lab_4
             name = keyboard.readLine();		//Зчитую його ім'я
             System.out.print("\t-port:\t\t");
             port = Integer.parseInt(keyboard.readLine());	//І його порт
+            Client myClient = new Client(address,name,port);//Запускаю клієнт
             System.out.println("\tClient is starting...");
             System.out.print("\tType matrix size ");
             final double startTime = System.currentTimeMillis();
@@ -337,7 +339,7 @@ public class lab_4
             temp9=new double[n][1];
             temp10=new double[n][1];
             x=new double[1];
-            Client myClient = new Client(address,name,port);//Запускаю клієнт
+
             A=myClient.remotingBrain.GenerateMatrix(n);
             A1=myClient.remotingBrain.GenerateMatrix(n);
             A2=myClient.remotingBrain.GenerateMatrix(n);
